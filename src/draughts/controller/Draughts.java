@@ -3,6 +3,7 @@ package draughts.controller;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -16,9 +17,6 @@ import draughts.model.PDN;
 import draughts.model.Player;
 import draughts.view.MainFrame;
 import draughts.view.MainFrameSize;
-import net.percederberg.grammatica.parser.ParserCreationException;
-import net.percederberg.grammatica.parser.ParserLogException;
-import parsers.FenGenerator;
 
 /**
  * Main class - part of the CONTROLLER component in a MVC pattern for this
@@ -87,13 +85,7 @@ public class Draughts {
 
 	public static void newMatch() {
 		
-		FEN fen = new FEN();
-		FenGenerator generator = new FenGenerator();
-		try {
-			fen = generator.generateFEN(FEN.getSartingPosition(gameType));
-		} catch (ParserCreationException | ParserLogException e) {
-			e.printStackTrace();
-		}
+		FEN fen = FEN.parseInitialFEN(gameType);
 		Player firstPlayer = new Player(null, fen.turn, true, fen.playerPieces);
 		Player opponent = new Player(null, fen.turn.getOppositeColor() , false, fen.opponentPieces);
 		

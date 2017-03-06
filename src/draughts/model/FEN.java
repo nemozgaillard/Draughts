@@ -1,15 +1,11 @@
 package draughts.model;
 
-import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Vector;
 
-import draughts.model.Piece;
-import net.percederberg.grammatica.parser.Node;
-import net.percederberg.grammatica.parser.Parser;
 import net.percederberg.grammatica.parser.ParserCreationException;
 import net.percederberg.grammatica.parser.ParserLogException;
-import parsers.FenParser;
+import parsers.FenGenerator;
 
 
 
@@ -65,12 +61,6 @@ public class FEN {
 	public Vector<Piece> playerPieces = null;
 	public Vector<Piece> opponentPieces = null;
 	
-		
-	public FEN(String fen) {
-		this(getParsedFen(fen));
-	}
-	
-	
 	public FEN() {
 		super();
 		this.turn = null;
@@ -78,11 +68,22 @@ public class FEN {
 		this.opponentPieces = new Vector<Piece> ();
 	}
 	
-	private FEN(Node parsedTree) {
-		this();
+	public static FEN parseFEN(String expression) {
+		FEN fen = new FEN();
+		FenGenerator generator = new FenGenerator();
+		try {
+			fen = generator.generateFEN(expression);
+		} catch (ParserCreationException | ParserLogException e) {
+			e.printStackTrace();
+		}
+		return fen;
 	}
-	
-	public static String getSartingPosition(GameType gameType) {
+
+	public static FEN parseInitialFEN(GameType gameType) {
+		return parseFEN(FEN.getSartingPosition(gameType));
+	}
+
+		public static String getSartingPosition(GameType gameType) {
 		
 		String fen = "";
 		switch ( gameType ) {
@@ -131,42 +132,6 @@ public class FEN {
 		
 		}
 		return fen;
-	}
-	
-	public static FEN parseFEN(String fen) {
-		Node parsedFEN = getParsedFen(fen);
-		return new FEN(parsedFEN);
-	}
-	
-	private static Node getParsedFen(String fen) {
-
-		Node parsedFEN = null;
-		// Parses the fen String into a parse tree. 
-	    try {
-	    	Parser parser = new FenParser(new StringReader(fen));
-	    	parsedFEN = parser.parse();
-	    } catch (ParserCreationException | ParserLogException e) {
-			e.printStackTrace();
-		}
-	    
-	    traverseTree(parsedFEN);
-	    
-		return parsedFEN;
-		
-	}
-	
-	private static void traverseTree(Node node) {
-		
-		// traverse tree
-		for ( int i = 0 ; i < node.getChildCount() ; i++) {
-			Node child = node.getChildAt(i);
-			System.out.println(child);
-			System.out.println(child.getId());
-			System.out.println(child.getName());
-			System.out.println(child.getValue(0));
-			traverseTree(node.getChildAt(i));
-		}
-		
 	}
 		
 	/**
