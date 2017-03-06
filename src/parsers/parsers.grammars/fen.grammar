@@ -1,0 +1,35 @@
+%header%
+
+GRAMMARTYPE = "LL"
+
+DESCRIPTION = "A grammar for FEN setup notation."
+
+AUTHOR      = "Wieger Wesselink, <wieger at 10x10 dot org>"
+AUTHOR      = "Modified by Eric Nemoz-Gaillard, <eric.ng at gmx dot fr>"
+VERSION     = "1.2.1"
+DATE        = "5 March 2017"
+
+LICENSE     = "Distributed under the Boost Software License, Version 1.0.
+               See http://www.boost.org/LICENSE_1_0.txt."
+
+COPYRIGHT   = "Copyright (c) 2009-2016 Wieger Wesselink. All rights reserved."
+
+%tokens%
+
+COLOR                      = <<[WB?]>>
+KING                       = "K"
+ALPHASQUARE                = <<[a-h][1-8]>>
+NUMSQUARE                  = <<([1-9][\d]*)|(0[1-9][\d]*)|0>>
+HYPHEN                     = "-"
+COMMA                      = ","
+COLON                      = ":"
+DOT                        = "." %ignore%
+WHITESPACE                 = <<[ \t\n\r]+>> %ignore%
+
+%productions%
+
+Fen                        = COLOR COLON Position COLON Position DOT?                ;
+Position                   = COLOR (NumericSquares | AlphaNumericSquares)            ;
+NumericSquares             = NumericSquareRange (COMMA NumericSquareRange)*          ;
+NumericSquareRange         = KING? NUMSQUARE (HYPHEN NUMSQUARE)?                     ;
+AlphaNumericSquares        = KING? ALPHASQUARE (COMMA KING? ALPHASQUARE)*            ;
