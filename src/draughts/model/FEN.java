@@ -169,8 +169,6 @@ public class FEN {
 	 */
 	private static String writeFEN(Vector<Piece> pieces) {
 		
-		
-		
 		String result = "";
 		
 		String positions[] = new String[pieces.size()]; 

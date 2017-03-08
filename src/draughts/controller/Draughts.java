@@ -85,13 +85,13 @@ public class Draughts {
 
 	public static void newMatch() {
 		
+		board = new Board(gameType);
 		FEN fen = FEN.parseInitialFEN(gameType);
 		Player firstPlayer = new Player(null, fen.turn, true, fen.playerPieces);
-		Player opponent = new Player(null, fen.turn.getOppositeColor() , false, fen.opponentPieces);
-		
-		// TODO Fix Problem here
 		board.addPieces(fen.playerPieces);
-		board.addPieces(fen.opponentPieces);		
+		Player opponent = new Player(null, fen.turn.getOppositeColor() , false, fen.opponentPieces);
+		board.addPieces(fen.opponentPieces);
+		draughtsGUI.changeBoard(board);
 		match = new Match(gameType, firstPlayer, opponent);
 		// TODO continue implementation of newMatch()
 	}

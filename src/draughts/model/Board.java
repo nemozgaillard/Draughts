@@ -64,11 +64,8 @@ public class Board{
 	}
 	
 	public void addPieces(Vector<Piece> pieces) {
-		// TODO debug... problem with pieces display...
 		for ( Piece piece : pieces) {
-			System.out.println(piece);
 			String label = piece.getSquareLabel();
-			System.out.println(label);
 			this.getSquare(label).addPiece(piece);
 		}
 	}

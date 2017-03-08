@@ -22,7 +22,7 @@ public class BoardView extends JComponent{
 	private static final long serialVersionUID = 1L;	
 	
 	/**
-	 * @param boardView<p>
+	 * boardView:<p>
 	 * The board view is modelized as a two-dimension array, {@code boardView}, containing the board's squares views, <br> 
 	 * following the same pattern as the board model. 
 	 */
@@ -32,13 +32,18 @@ public class BoardView extends JComponent{
 	 * @see {@link ColorScheme}
 	 */
 	private ColorScheme colorScheme;
+	/**
+	 * The dimension of the board: number of columns and rows
+	 */
 	private Dimension boardSize;
 	private Dimension margins;
 	/**
 	 * @param SQUARE_SIZE is the size of the square side in pixel. 
 	 */
 	private int SQUARE_SIZE;
-
+	/**
+	 * displayLabels: determines if labels are displayed or not. 
+	 */
 	public static boolean displayLabels;
 
 	/**
@@ -53,11 +58,9 @@ public class BoardView extends JComponent{
 		this.colorScheme = new ColorScheme(board.getGameType());
 		
 		// In pixel, the height of the board to be drawn. 
-		int minDimension = Math.min(dimension.width, dimension.height);
-		// The dimension of the board: number of columns and rows. 
+		int minDimension = Math.min(dimension.width, dimension.height); 
 		this.boardSize = board.getSize();
 		int maxSize = Math.max(boardSize.width, boardSize.height);
-		// Calculates square size in pixel. 
 		this.SQUARE_SIZE = (minDimension - minDimension  % (maxSize + 1)) / (maxSize + 1);
 		
 		this.margins = new Dimension(
@@ -146,14 +149,19 @@ public class BoardView extends JComponent{
 		private ActiveSquareView(Board.ActiveSquare square) {
 			super(square);
 			this.square = (Board.ActiveSquare) square;
+			if ( this.square.isOccupied() ) {
+				this.addPieceView(square.getPiece());
+			}
 			this.labelView = new LabelView(square.getLabel());
 			labelView.setBounds(0, 0, SQUARE_SIZE, SQUARE_SIZE);
 			add(labelView);
 		}
-		
-		private ActiveSquareView(Board.ActiveSquare square, Piece piece) {
-			this(square);
-			this.addPieceView(piece);
+
+		@Override
+		protected void addPieceView(Piece piece) {
+			this.pieceView = new PieceView(piece, SQUARE_SIZE, colorScheme);
+			pieceView.setBounds(0, 0, SQUARE_SIZE, SQUARE_SIZE);
+			add(pieceView);
 		}
 		
 		@Override
@@ -165,6 +173,13 @@ public class BoardView extends JComponent{
 			Color SQUARE_COLOR = ( mouseIn ) ? colorScheme.DARK_FIELD_COLOR.darker() : colorScheme.DARK_FIELD_COLOR;
 			// Highlights the square with a border if on a capture path
 			
+			// Default square display
+			g.setColor(SQUARE_COLOR);
+			g.fillRect(0, 0, SQUARE_SIZE, SQUARE_SIZE);
+			// Displays label if required
+			labelView.setVisible(displayLabels) ;
+			if ( this.pieceView != null ) { this.pieceView.setVisible(true); }
+			// Capture path highlighting
 			if ( square.isOnCapturePath() ) {
 				border = new LineBorder(colorScheme.HIGHLIGHT_COLOR, 3, true);
 				this.setBorder(border);
@@ -172,20 +187,9 @@ public class BoardView extends JComponent{
 			else {
 				this.setBorder(null);
 			}
-			// Default square display
-			g.setColor(SQUARE_COLOR);
-			g.fillRect(0, 0, SQUARE_SIZE, SQUARE_SIZE);
-			// Displays label if required
-			labelView.setVisible(displayLabels) ;
-			
-			// Adds piece if any
-			if ( square.isOccupied() == true ) {
-				pieceView = new PieceView(square.getPiece(), SQUARE_SIZE);
-				this.add(pieceView);
-			}
-			repaint();
+		
 		}
-
+			
 		@Override
 		public void mouseEntered(MouseEvent e) {
 			mouseIn = true;
@@ -198,19 +202,11 @@ public class BoardView extends JComponent{
 			repaint();
 		}
 
-		@Override
-		protected void addPieceView(Piece piece) {
-			this.pieceView = new PieceView(piece, SQUARE_SIZE);
-			pieceView.setBounds(0, 0, SQUARE_SIZE, SQUARE_SIZE);
-			add(pieceView);
-		}
-		
 		private class LabelView extends JComponent {
 			
 			private static final long serialVersionUID = 1L;
 
 			private final static int OFFSET = 4; 
-			
 			private String label;
 			
 			private LabelView(String label) {
@@ -246,15 +242,16 @@ public class BoardView extends JComponent{
 		}
 		
 		@Override
+		protected void addPieceView(Piece piece) { }
+
+		@Override
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			g.setColor(colorScheme.LIGHT_FIELD_COLOR);
 			g.fillRect(0, 0, SQUARE_SIZE, SQUARE_SIZE);			
 		}
-
-		@Override
-		protected void addPieceView(Piece piece) { }
 		
 	}
+	
 	
 }
