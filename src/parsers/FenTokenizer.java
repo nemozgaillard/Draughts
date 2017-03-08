@@ -62,7 +62,7 @@ class FenTokenizer extends Tokenizer {
         pattern = new TokenPattern(FenConstants.ALPHASQUARE,
                                    "ALPHASQUARE",
                                    TokenPattern.REGEXP_TYPE,
-                                   "[a-h][1-8]");
+                                   "[a-j][1-8]");
         addPattern(pattern);
 
         pattern = new TokenPattern(FenConstants.NUMSQUARE,

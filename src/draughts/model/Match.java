@@ -2,6 +2,7 @@ package draughts.model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Vector;
 
 /**
  * part of the CONTROLLER component in a MVC pattern for this application
@@ -13,6 +14,7 @@ public class Match {
 	private PDN gameData;
 	public Player firstplayer;
 	public Player opponent;
+	public Vector<Move> moves = null;
 	
 	public Match(GameType gameType, Player firstplayer, Player opponent) {
 		

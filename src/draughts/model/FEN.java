@@ -122,7 +122,7 @@ public class FEN {
 			break;
 
 		case SPANTSIRETTI:
-			fen = "W:Wa1,c1,e1,g1,b2,d2,f2,h2,a3,c3,e3,g3:Bb6,d6,f6,h6,a7,c7,e7,g7,b8,d8,f8,h8";
+			fen = "W:Wa1,c1,e1,g1,i1,b2,d2,f2,h2,j2,a3,c3,e3,g3,i3:Bb6,d6,f6,h6,j6,a7,c7,e7,g7,i7,b8,d8,f8,h8,j8";
 			break;
 
 		// TODO Later implement TURKISH draughts game

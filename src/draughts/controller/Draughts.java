@@ -19,8 +19,7 @@ import draughts.view.MainFrame;
 import draughts.view.MainFrameSize;
 
 /**
- * Main class - part of the CONTROLLER component in a MVC pattern for this
- * application. <br>
+ * Main class - part of the CONTROLLER component in a MVC pattern for this application. 
  */
 public class Draughts {
 	
@@ -31,17 +30,13 @@ public class Draughts {
 	private static Match match;
 	
 	public static void main(String[] args) {
-		
 		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				startGUI();
-			}
+			public void run() { startGUI(); }
 		});
-		
 	}
 	
 	/**
-	 * Displays the main Draughts Window GUI. <br>
+	 * Starts the main Draughts Window GUI. <br>
 	 * <i>Displayed board: empty International draughts board. </i><br>
 	 */
 	public static void startGUI() {
@@ -50,11 +45,10 @@ public class Draughts {
 	}
 	
 	/**
-	 * Displays the main Draughts Window GUI. <br>
+	 * Starts the main Draughts Window GUI. <br>
 	 * <i>Displayed board: an empty board of type {@code gameType}.
 	 * 
-	 * @param gameType
-	 *            : the type of the draughts game.
+	 * @param gameType : the type of the draughts game.
 	 * @see {@link #GameType}
 	 */
 	public static void startGUI(GameType gameType) {
@@ -63,13 +57,10 @@ public class Draughts {
 	}
 	
 	/**
-	 * Displays the main Draughts Window GUI. <br>
+	 * Starts the main Draughts Window GUI. <br>
 	 * 
-	 * @param gameData
-	 *            - a PDN object containing pertinent informations for the game:
-	 *            <br>
-	 *            Event, Site, Date, Round, White, Black, [Result],
-	 *            <b>gameType</b>, [FEN]
+	 * @param gameData - a PDN object containing pertinent informations for the game: <br>
+	 * Event, Site, Date, Round, White, Black, [Result], <b>gameType</b>, [FEN]
 	 * 
 	 * @see {@link #GameType}
 	 * @see {@link #PDN}
@@ -82,9 +73,10 @@ public class Draughts {
 		draughtsGUI = new MainFrame(board);
 
 	}
-
+	
 	public static void newMatch() {
 		
+		proposeToSaveBeforeAction();
 		board = new Board(gameType);
 		FEN fen = FEN.parseInitialFEN(gameType);
 		Player firstPlayer = new Player(null, fen.turn, true, fen.playerPieces);
@@ -96,6 +88,12 @@ public class Draughts {
 		// TODO continue implementation of newMatch()
 	}
 
+	/**
+	 * Relays user's choice to change the type of game to play. 
+	 *  
+	 * @param gameType : the gameType
+	 * @see {@link #GameType} 
+	 */
 	public static void changeGame(GameType gameType) {
 
 		if (Draughts.gameType != gameType) {
@@ -108,7 +106,7 @@ public class Draughts {
 	}
 
 	/**
-	 * Loads a draughts match from an existing file. <br>
+	 * Loads a draughts match from an existing file in pdn format. <br>
 	 */
 	public static void loadFile() {
 		
@@ -129,7 +127,7 @@ public class Draughts {
 	}
 
 	/**
-	 * Saves a draughts match into a file. <br>
+	 * Saves a draughts match into a file, encoding is in pdn format. <br>
 	 * <i>File overwriting is not allowed. </i>
 	 */
 	public static void saveFile() {
@@ -177,7 +175,7 @@ public class Draughts {
 					);
 		}
 	}
-
+	
 	public static void quit() {
 		proposeToSaveBeforeAction();
 		System.exit(0);
@@ -186,39 +184,51 @@ public class Draughts {
 	public static void undoMove() {
 		// TODO Auto-generated method stub
 	}
-
+	
+	/**
+	 * Relays user's choice to display/hide square labels. 
+	 * 
+	 * @param displayLabels : boolean, display square labels if true. 
+	 */
 	public static void displayLabels(boolean displayLabels) {
 		draughtsGUI.displayLabels(displayLabels);
 		
 	}
-
+	
+	/**
+	 * Relays user's choice to change the size of the main frame. 
+	 * 
+	 * @param ratio : A {@code MainFrameSize} parameter encoding the size of the main frame in relation to screen size. 
+	 */
 	public static void changeFrameSize(MainFrameSize ratio) {
 		draughtsGUI.setFrameSize(ratio);
 	}
 
 	public static void help() {
-		// TODO Auto-generated method stub
+		// TODO Implement the help interface...
 	}
 
 	public static void about() {
+		// TODO implement the about message window...
 		JOptionPane.showMessageDialog(
 				null, 
 				"Description of the sofware goes here. ", "About Draughts",
 				JOptionPane.INFORMATION_MESSAGE
 				);
 	}
-
+	
+	/**
+	 * Helper method proposing to save current game, if started, before taking further action. 
+	 */
 	private static void proposeToSaveBeforeAction() {
 
-		if (match != null) {
-			
+		if (match != null && match.moves != null ) {
 			int returnValue = JOptionPane.showConfirmDialog(
 					null, 
 					"A match is currently ongoing. \r\nWould you like to save it first ?", "Warning!",
 					JOptionPane.YES_NO_OPTION
 					);
 			 if ( returnValue == JOptionPane.OK_OPTION ) { saveFile(); }
-
 		}
 
 	}
