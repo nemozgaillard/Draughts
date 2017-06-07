@@ -6,10 +6,10 @@ package draughts.exceptions;
  */
 public class EmptySquareException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public EmptySquareException(String message) {
-		super(message);
-	}
+    public EmptySquareException(String message) {
+        super(message);
+    }
 
 }

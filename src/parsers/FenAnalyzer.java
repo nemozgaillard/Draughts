@@ -20,7 +20,7 @@ import net.percederberg.grammatica.parser.Token;
 /**
  * A class providing callback methods for the parser.
  *
- * @author   Modified by Eric Nemoz-Gaillard, <eric.ng at gmx dot fr>
+ * @author   Modified by Eric Nemoz-Gaillard, eric.ng at gmx dot fr
  * @version  1.2.1
  */
 public abstract class FenAnalyzer extends Analyzer {

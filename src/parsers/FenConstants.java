@@ -14,7 +14,7 @@ package parsers;
 /**
  * An interface with constants for the parser and tokenizer.
  *
- * @author   Modified by Eric Nemoz-Gaillard, <eric.ng at gmx dot fr>
+ * @author   Modified by Eric Nemoz-Gaillard, eric.ng at gmx dot fr
  * @version  1.2.1
  */
 public interface FenConstants {

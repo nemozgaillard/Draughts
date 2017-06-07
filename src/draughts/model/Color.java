@@ -7,31 +7,31 @@ package draughts.model;
  *
  */
 public enum Color { 
-	
-	BLACK("B") , WHITE("W");
-	
-	private final String colorCode;
-	private Color(final String str) { this.colorCode = str; }
-	
-	public Color getOppositeColor() {
-		return ( this.colorCode == "W" ) ? Color.BLACK : Color.WHITE;
-	}
-	
-	public static Color valueOfString(String colorCode) {
-		
-		for ( Color color : values()) {
-			if ( color.colorCode.equals(colorCode) ) {
-				return color;
-			}
-		}
-		return null;
-		
-	}
-	
-	/**
-	* @return one-letter encoded color, either "B" or "W". 
-	**/
-	@Override
-	public String toString() { return colorCode; }
-	
+    
+    BLACK("B") , WHITE("W");
+    
+    private final String colorCode;
+    private Color(final String str) { this.colorCode = str; }
+    
+    public Color getOppositeColor() {
+        return ( this.colorCode == "W" ) ? Color.BLACK : Color.WHITE;
+    }
+    
+    public static Color valueOfString(String colorCode) {
+        
+        for ( Color color : values()) {
+            if ( color.colorCode.equals(colorCode) ) {
+                return color;
+            }
+        }
+        return null;
+        
+    }
+    
+    /**
+    * @return one-letter encoded color, either "B" or "W". 
+    **/
+    @Override
+    public String toString() { return colorCode; }
+    
 }

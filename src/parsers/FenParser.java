@@ -22,7 +22,7 @@ import net.percederberg.grammatica.parser.Tokenizer;
 /**
  * A token stream parser.
  *
- * @author   Modified by Eric Nemoz-Gaillard, <eric.ng at gmx dot fr>
+ * @author   Modified by Eric Nemoz-Gaillard, eric.ng at gmx dot fr
  * @version  1.2.1
  */
 public class FenParser extends RecursiveDescentParser {

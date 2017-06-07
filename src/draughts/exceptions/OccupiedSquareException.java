@@ -6,10 +6,10 @@ package draughts.exceptions;
  */
 public class OccupiedSquareException extends RuntimeException {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public OccupiedSquareException(String message) {
-		super(message);
-	}
+    public OccupiedSquareException(String message) {
+        super(message);
+    }
 
 }
