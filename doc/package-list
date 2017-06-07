@@ -1,0 +1,5 @@
+draughts.controller
+draughts.exceptions
+draughts.model
+draughts.view
+parsers
